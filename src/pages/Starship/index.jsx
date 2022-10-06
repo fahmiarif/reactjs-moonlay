@@ -8,6 +8,7 @@ import jupiter from '../../assets/images/jupiter.jpg'
 import CardStarship from '../../components/CardStarship'
 import Pagination from '../../components/Pagination'
 import { getStarshipById, getStarships } from '../../services';
+import Loading from '../../components/Loading';
 
 /**
  * SCHEMA VALIDATION
@@ -121,6 +122,9 @@ export default function Starship() {
                     )}
                 </form>
             </div>
+            {data==''&&(
+                <Loading/>
+            )}
             <div className='mt-4 border-t py-2 grid grid-cols-2 lg:grid-cols-3 gap-2'>
                 {data?.map(({ name, model, crew }, i) => (
                     <CardStarship key={i} id={i} name={name} crew={crew} model={model} handleDelete={handleDelete} handleEdit={handleEdit} />

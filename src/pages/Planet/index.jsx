@@ -7,6 +7,7 @@ import * as yup from "yup";
 import jupiter from '../../assets/images/jupiter.jpg'
 import CardPlanet from '../../components/CardPlanet'
 import Pagination from '../../components/Pagination'
+import Loading from '../../components/Loading'
 import { getPlanetById, getPlanets } from '../../services';
 
 /**
@@ -121,6 +122,9 @@ export default function Planet() {
                     )}
                 </form>
             </div>
+            {data==''&&(
+                <Loading/>
+            )}
             <div className='mt-4 border-t py-2 grid grid-cols-2 lg:grid-cols-3 gap-2'>
                 {data?.map(({ name, diameter, terrain, population }, i) => (
                     <CardPlanet key={i} id={i} name={name} diameter={diameter} population={population} terrain={terrain} handleDelete={handleDelete} handleEdit={handleEdit} />

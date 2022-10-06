@@ -8,6 +8,7 @@ import jupiter from '../../assets/images/jupiter.jpg'
 import CardPeople from '../../components/CardPeople'
 import Pagination from '../../components/Pagination'
 import { getPeopleById, getPeoples } from '../../services';
+import Loading from '../../components/Loading';
 
 /**
  * SCHEMA VALIDATION
@@ -121,6 +122,9 @@ export default function People() {
                     )}
                 </form>
             </div>
+            {data==''&&(
+                <Loading/>
+            )}
             <div className='mt-4 border-t py-2 grid grid-cols-2 lg:grid-cols-3 gap-2'>
                 {data?.map(({ name, height, gender }, i) => (
                     <CardPeople key={i} id={i} name={name} gender={gender} height={height} handleDelete={handleDelete} handleEdit={handleEdit} />
