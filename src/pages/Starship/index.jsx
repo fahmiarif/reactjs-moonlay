@@ -32,6 +32,7 @@ export default function Starship() {
     const [data, setData] = useState([])
     const [page, setPage] = useState(1)
     const [isEdit, setisEdit] = useState(false)
+    const [isAdd, setisAdd] = useState(false)
 
     /**
      * HANDLE BUTTON ADD/SAVE
@@ -41,6 +42,7 @@ export default function Starship() {
         setValue('name', '')
         setValue('model', '')
         setisEdit(false)
+        setisAdd(false)
     }
     /**
      * HANDLE BUTTON DELETE
@@ -108,22 +110,37 @@ export default function Starship() {
     return (
         <div>
             {/* {process.env.REACT_APP_URL_API} */}
-            <h1 className='font-medium text-lg'>Starship </h1>
-            <div className='my-1'>
-                <form onSubmit={handleSubmit(onSubmit)} className='space-y-1'>
-                    <input className={`py-1 border rounded w-full placeholder:text-sm px-4 ${errors.name && 'border-red-600'}`} {...register("name")} name='name' placeholder='input Starship name' type="text" />
-                    <p className='text-red-500 text-xs'>{errors.name?.message}</p>
-                    <input className={`py-1 border rounded w-full placeholder:text-sm px-4 ${errors.model && 'border-red-600'}`} {...register("model")} name='model' placeholder='input model size' type="text" />
-                    <p className='text-red-500 text-xs'>{errors.model?.message}</p>
+            <h1 className='font-medium text-lg'>Starship</h1>
+            <div className='my-1 border-t-2'>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className={`space-y-1 ${!isEdit&&!isAdd?'hidden':''} `}>
+                        <h1>{!isEdit?'Add new data':'Edit data'}</h1>
+                        <input className={`py-1 border rounded w-full placeholder:text-sm px-4 ${errors.name && 'border-red-600'}`} {...register("name")} name='name' placeholder='input Starship name' type="text" />
+                        <p className='text-red-500 text-xs'>{errors.name?.message}</p>
+                        <input className={`py-1 border rounded w-full placeholder:text-sm px-4 ${errors.model && 'border-red-600'}`} {...register("model")} name='model' placeholder='input model' type="text" />
+                        <p className='text-red-500 text-xs'>{errors.model?.message}</p>
+                    </div>
                     {isEdit != '' ? (
-                        <button className='border w-full border-green-500 rounded px-3 py-1 text-sm text-gray-600 hover:bg-green-400 hover:text-white'>Update</button>
+                        <div className="flex gap-2">
+                            <span onClick={()=>setisEdit(false)} className='border flex justify-center w-full border-gray-500 rounded px-3 py-1 text-sm text-gray-600 hover:bg-gray-400 hover:text-white cursor-pointer'>Cancel</span>
+                            <button className='border w-full border-green-500 rounded px-3 py-1 text-sm text-gray-600 hover:bg-green-400 hover:text-white'>Update</button>
+                        </div>
                     ) : (
-                        <button className='border w-full border-green-500 rounded px-3 py-1 text-sm text-gray-600 hover:bg-green-400 hover:text-white'>Add New</button>
+                        <>
+                        {isAdd?(
+                            <div className="flex gap-2 mt-2">
+                                <span onClick={()=>setisAdd(false)} className='border flex justify-center w-full border-gray-500 rounded px-3 py-1 text-sm text-gray-600 hover:bg-gray-400 hover:text-white cursor-pointer'>Cancel</span>
+                                <button className='border w-full border-green-500 rounded px-3 py-1 text-sm text-gray-600 hover:bg-green-400 hover:text-white'>Add New</button>
+                            </div>
+                        ):(
+                            <span onClick={()=>setisAdd(true)} className='border mt-2 flex justify-center w-full border-green-500 rounded px-3 py-1 text-sm text-gray-600 hover:bg-green-400 hover:text-white cursor-pointer'>Add New</span>
+                        )}
+                        </>
                     )}
                 </form>
             </div>
-            {data==''&&(
-                <Loading/>
+            {data == '' && (
+                <Loading />
             )}
             <div className='mt-4 border-t py-2 grid grid-cols-2 lg:grid-cols-3 gap-2'>
                 {data?.map(({ name, model, crew }, i) => (

@@ -8,14 +8,14 @@
     4. `npm run dev`
     5. lalu buka host di browser contoh Local: http://127.0.0.1:5173
 
-## Isi program
+## Keterangan isi dependency program
     - React with Vite
     - Tailwind CSS
     - React router v6
     - React hook form + Yup
     - Axios
     - Sweetalert
-    - dotenv
+    - Karena sudah menggunakan Vite maka import semua variabel .env pakai `import.meta.env.[VARIABEL]`
     - Dokumentasi API from https://swapi.dev
 ---
 > Terimakasih

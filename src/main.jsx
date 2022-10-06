@@ -7,6 +7,13 @@ import Layout from "./components/Layout";
 import ErrorPage from "./pages/error-page";
 import { Home, Planet, People, Starship } from "./pages";
 
+// DEFAULT BASEURL GLOBAL
+import axios from "axios";
+axios.defaults.baseURL = import.meta.env.VITE_URL_API; // import from .env
+
+/**
+ * REACT-ROUTER
+ */
 const router = createBrowserRouter([
   {
     path: "/",
